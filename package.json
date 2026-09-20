@@ -1,0 +1,12 @@
+{
+  "name": "hammasir",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node core/rules.test.js && node core/matching.test.js && node core/validation.test.js",
+    "test:rules": "node core/rules.test.js",
+    "test:matching": "node core/matching.test.js",
+    "test:validation": "node core/validation.test.js"
+  }
+}
