@@ -1,6 +1,33 @@
 // core/location.js
-import { CITY_GEO, PROVINCE_GEO, CITY_CENTERS } from './constants.js';
-import { candidateCity, candidateProvince, plateParityFromBody } from './rules.js';
+import { CITY_GEO, PROVINCE_GEO, CITY_CENTERS, IRAN_LOCATIONS } from './constants.js';
+import { plateParityFromBody } from './rules.js';
+
+export function provinceForCity(city = '') {
+  if (!city) return '';
+  for (const [province, cities] of Object.entries(IRAN_LOCATIONS))
+    if (cities.includes(city)) return province;
+  return '';
+}
+
+export function inferCityFromAddress(address = '') {
+  const s = String(address || '');
+  for (const cities of Object.values(IRAN_LOCATIONS)) {
+    const hit = cities.find(city => s.includes(city));
+    if (hit) return hit;
+  }
+  return '';
+}
+
+export function candidateCity(m, kind) {
+  const key = kind === 'origin' ? 'originCity' : 'destinationCity';
+  const addrKey = kind === 'origin' ? 'originAddress' : 'destinationAddress';
+  return m?.[key] || inferCityFromAddress(m?.[addrKey]) || '';
+}
+
+export function candidateProvince(m, kind) {
+  const key = kind === 'origin' ? 'originProvince' : 'destinationProvince';
+  return m?.[key] || provinceForCity(candidateCity(m, kind)) || '';
+}
 
 export function haversineCoords(a, b) {
   if (!Array.isArray(a) || !Array.isArray(b)) return NaN;
@@ -86,4 +113,4 @@ export function candidateGroupDistanceScore(c, existing, state) {
 
 export function cityCenter(city, fallbackLabel) {
   return CITY_CENTERS[city] || CITY_CENTERS[fallbackLabel] || { x: 50, y: 50 };
-    }
+}
