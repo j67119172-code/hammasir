@@ -1,0 +1,10 @@
+file:///workspaces/hammasir/core/location.js:2
+import { CITY_GEO, PROVINCE_GEO, CITY_CENTERS, IRAN_LOCATIONS } from './constants.js';
+                                 ^^^^^^^^^^^^
+SyntaxError: The requested module './constants.js' does not provide an export named 'CITY_CENTERS'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:455:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:553:5)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.21.0

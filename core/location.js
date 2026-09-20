@@ -1,5 +1,5 @@
 // core/location.js
-import { CITY_GEO, PROVINCE_GEO, CITY_CENTERS, IRAN_LOCATIONS } from './constants.js';
+import { CITY_GEO, PROVINCE_GEO, IRAN_LOCATIONS } from './constants.js';
 import { plateParityFromBody } from './rules.js';
 
 export function provinceForCity(city = '') {
@@ -111,6 +111,3 @@ export function candidateGroupDistanceScore(c, existing, state) {
   return avg + 0.35 * worst;
 }
 
-export function cityCenter(city, fallbackLabel) {
-  return CITY_CENTERS[city] || CITY_CENTERS[fallbackLabel] || { x: 50, y: 50 };
-}
