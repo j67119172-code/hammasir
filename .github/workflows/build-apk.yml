@@ -40,11 +40,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Android SDK 35
-        run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+      - name: Install Android SDK components
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+            "platform-tools" "platforms;android-35" "build-tools;35.0.0" || \
+          yes | sdkmanager \
+            "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Copy web assets into Android project
         run: |
