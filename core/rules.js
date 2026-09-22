@@ -3,7 +3,7 @@ import {
   CFG, TRAFFIC_PARITY_CITIES, CAR_CLASS_INFO, CAR_MODEL_CLASS,
 } from './constants.js';
 import { onlyDigits } from './utils.js';
-
+import { onlyDigits, periodFa } from './utils.js';
 export function normalizeCarModel(v = '') {
   return String(v || '').trim().replace(/\s+/g, ' ');
 }
@@ -102,13 +102,26 @@ export function genderCompatiblePair(a, b, state) {
 export function carClassCompatiblePair(a, b, state) {
   if (!memberSameCarClassOnly(a, state) && !memberSameCarClassOnly(b, state)) return true;
   return carClassOf(memberCar(a, state)) === carClassOf(memberCar(b, state));
-}
+}export function daysCompatiblePair(a, b, state) {
+  const aDays = (a?.id === 'me' ? state.daysGoing : a?.daysGoing) || [];
+  const bDays = (b?.id === 'me' ? state.daysGoing : b?.daysGoing) || [];
 
-export function hardCompatiblePair(a, b, state) {
+  if (aDays.length === 0 || bDays.length === 0) return false;
+  if (aDays.length !== bDays.length) return false;
+
+  const sa = [...aDays].map(Number).sort((x, y) => x - y);
+  const sb = [...bDays].map(Number).sort((x, y) => x - y);
+
+  for (let i = 0; i < sa.length; i++) {
+    if (sa[i] !== sb[i]) return false;
+  }
+  return true;
+  export function hardCompatiblePair(a, b, state) {
   return timeCompatiblePair(a, b, state)
       && genderCompatiblePair(a, b, state)
-      && carClassCompatiblePair(a, b, state);
-}
+      && carClassCompatiblePair(a, b, state)
+      && daysCompatiblePair(a, b, state);
+  }                                 
 
 export function allPairwiseHardCompatible(members, state) {
   for (let i = 0; i < members.length; i++)
