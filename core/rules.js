@@ -2,7 +2,7 @@
 import {
   CFG, TRAFFIC_PARITY_CITIES, CAR_CLASS_INFO, CAR_MODEL_CLASS,
 } from './constants.js';
-import { onlyDigits } from './utils.js';
+
 import { onlyDigits, periodFa } from './utils.js';
 export function normalizeCarModel(v = '') {
   return String(v || '').trim().replace(/\s+/g, ' ');
