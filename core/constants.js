@@ -75,6 +75,12 @@ export const PROVINCE_CAPITAL = {
 export const PROVINCE_GEO = Object.fromEntries(
   Object.entries(PROVINCE_CAPITAL).map(([p,c])=>[p,CITY_GEO[c]]).filter(([_,g])=>Array.isArray(g))
 );
+export const WEEKDAYS = [
+  'شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه',
+  'چهارشنبه', 'پنجشنبه', 'جمعه',
+];
+
+export const WEEKDAY_SHORT = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
 export const CAR_CLASS_INFO = {
   economy:{label:'اقتصادی',examples:'پراید، تیبا، ساینا، کوییک'},
   compact:{label:'کامپکت',examples:'پژو ۲۰۶، ۲۰۷، رانا'},
