@@ -181,21 +181,27 @@ async function renderHome() {
     state.user = me.user; state.route = me.route; state.car = me.car;
   }
 
-  const missingProfile = !state.route || !state.car;
+  const profileComplete = !!(state.route && state.car && state.user.name && state.user.gender && state.user.age);
+
   appEl.innerHTML = `
     <section class="hero"><h1>سلام ${Core.esc(state.user.name)}</h1>
       <p>روش تشکیل گروه را انتخاب کن.</p></section>
-    ${missingProfile ? '<div class="notice orange">برای تشکیل گروه ابتدا پروفایل و مسیر خود را تکمیل کنید.</div>' : ''}
+    ${!profileComplete ? `
+      <div class="notice orange">
+        <b>پروفایل شما ناقص است.</b> برای تشکیل گروه، ابتدا باید اطلاعات مسیر و خودرو را وارد کنید.
+      </div>` : ''}
     <div class="card" onclick="app.completeProfile()">
       <h3>👤 پروفایل من</h3>
       <p>${state.car ? Core.esc(state.car.model) : 'خودرو ثبت نشده'} — ویرایش اطلاعات</p>
     </div>
-    <div class="card" onclick="app.smartGroup()">
+    <div class="card" onclick="${profileComplete ? 'app.smartGroup()' : 'app.completeProfile()'}">
       <h3>🚙 دریافت پیشنهاد هم‌مسیر</h3>
-      <p>سامانه نزدیک‌ترین افراد را بر اساس موقعیت، زمان و ظرفیت پیشنهاد می‌دهد.</p>
+      <p>${profileComplete
+        ? 'سامانه نزدیک‌ترین افراد را بر اساس موقعیت، زمان و ظرفیت پیشنهاد می‌دهد.'
+        : 'برای فعال شدن این دکمه، ابتدا پروفایل خود را تکمیل کنید.'
+      }</p>
     </div>`;
 }
-
 function activeNav(id) {
   ['nHome', 'nGroup', 'nMsg', 'nProfile'].forEach(x => {
     document.getElementById(x)?.classList.toggle('active', x === id);
