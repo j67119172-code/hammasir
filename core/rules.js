@@ -118,21 +118,7 @@ export function daysCompatiblePair(a, b, state) {
   }
   return true;
 }
-export function daysCompatiblePair(a, b, state) {
-  const aDays = (a?.id === 'me' ? state.daysGoing : a?.daysGoing) || [];
-  const bDays = (b?.id === 'me' ? state.daysGoing : b?.daysGoing) || [];
-
-  if (aDays.length === 0 || bDays.length === 0) return false;
-  if (aDays.length !== bDays.length) return false;
-
-  const sa = [...aDays].map(Number).sort((x, y) => x - y);
-  const sb = [...bDays].map(Number).sort((x, y) => x - y);
-
-  for (let i = 0; i < sa.length; i++) {
-    if (sa[i] !== sb[i]) return false;
-  }
-  return true;
-                               
+                             
 export function hardCompatiblePair(a, b, state) {
   return timeCompatiblePair(a, b, state)
       && genderCompatiblePair(a, b, state)
