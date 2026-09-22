@@ -11,6 +11,7 @@ import { pingDatabase } from './config/db.js';
 import { errorHandler, notFoundHandler } from './middleware/errors.js';
 import { generalLimiter } from './middleware/rateLimit.js';
 import { authRouter } from './routes/auth.js';
+import { profileRouter } from './routes/profile.js';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -54,7 +55,7 @@ app.get('/health', async (_req, res) => {
 
 app.use(generalLimiter);
 app.use('/auth', authRouter);
-
+app.use('/me', profileRouter);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
