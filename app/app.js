@@ -181,26 +181,33 @@ async function renderHome() {
     state.user = me.user; state.route = me.route; state.car = me.car;
   }
 
-  const profileComplete = !!(state.route && state.car && state.user.name && state.user.gender && state.user.age);
+  const profileComplete = !!(state.route && state.car);
 
   appEl.innerHTML = `
     <section class="hero"><h1>سلام ${Core.esc(state.user.name)}</h1>
       <p>روش تشکیل گروه را انتخاب کن.</p></section>
+
     ${!profileComplete ? `
       <div class="notice orange">
         <b>پروفایل شما ناقص است.</b> برای تشکیل گروه، ابتدا باید اطلاعات مسیر و خودرو را وارد کنید.
       </div>` : ''}
+
     <div class="card" onclick="app.completeProfile()">
       <h3>👤 پروفایل من</h3>
       <p>${state.car ? Core.esc(state.car.model) : 'خودرو ثبت نشده'} — ویرایش اطلاعات</p>
     </div>
-    <div class="card" onclick="${profileComplete ? 'app.smartGroup()' : 'app.completeProfile()'}">
-      <h3>🚙 دریافت پیشنهاد هم‌مسیر</h3>
-      <p>${profileComplete
-        ? 'سامانه نزدیک‌ترین افراد را بر اساس موقعیت، زمان و ظرفیت پیشنهاد می‌دهد.'
-        : 'برای فعال شدن این دکمه، ابتدا پروفایل خود را تکمیل کنید.'
-      }</p>
-    </div>`;
+
+    ${profileComplete ? `
+      <div class="card" onclick="app.smartGroup()">
+        <h3>🚙 دریافت پیشنهاد هم‌مسیر</h3>
+        <p>سامانه نزدیک‌ترین افراد را بر اساس موقعیت، زمان و ظرفیت پیشنهاد می‌دهد.</p>
+      </div>
+    ` : `
+      <div class="card" style="opacity:0.55;cursor:not-allowed;pointer-events:none">
+        <h3>🚙 دریافت پیشنهاد هم‌مسیر</h3>
+        <p>🔒 برای فعال شدن این دکمه، ابتدا پروفایل خود را از بالا تکمیل کنید.</p>
+      </div>
+    `}`;
 }
 function activeNav(id) {
   ['nHome', 'nGroup', 'nMsg', 'nProfile'].forEach(x => {
