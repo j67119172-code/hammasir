@@ -33,6 +33,7 @@ export function defaultState() {
     incompleteGroupDeadlineAt: null, incompleteCandidateDeadlineAt: null,
     incompleteVotes: {}, incompleteRejectedCandidateIds: [],
     groupEventLog: [], smsLog: [],
+    daysGoing: [],
     paymentResume: '', paymentLabel: '', profileEditMode: false,
   };
 }
@@ -82,6 +83,7 @@ export function selfMember() {
     originProvince: state.originProvince,
     originCity: state.originCity,
     originRegion: state.originRegion,
+    daysGoing: state.daysGoing || [],
     originAddress: state.originPoint,
     originDistanceKm: 0,
     destinationProvince: state.destinationProvince,
