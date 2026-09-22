@@ -9,6 +9,8 @@ import { carClassOf, plateParityFromBody } from '../../../core/index.js';
 export const profileRouter = Router();
 profileRouter.use(requireAuth);
 
+// ─── Schema ها ───────────────────────────────────────────
+
 const plateBodyRegex = /^\d{2}[آ-ی]\d{3}$/u;
 const timeRegex = /^(0?[1-9]|1[0-2]):[0-5]\d$/;
 
@@ -26,18 +28,19 @@ const RoutePointSchema = z.object({
   point: z.string().min(4).max(120),
   mapX: z.number().min(0).max(100).nullable().optional(),
   mapY: z.number().min(0).max(100).nullable().optional(),
-  lat: z.number().min(-90).max(90).nullable().optional(),
-  lng: z.number().min(-180).max(180).nullable().optional(),
 });
+
+const WeekdaysSchema = z.array(z.number().int().min(0).max(6)).max(7);
 
 const UpdateProfileSchema = z.object({
   name: z.string().min(5).max(60).optional(),
   gender: z.enum(['male', 'female']).optional(),
   age: z.number().int().min(18).max(80).optional(),
-  photoUrl: z.string().url().nullable().optional(),
+  photoUrl: z.string().max(900000).nullable().optional(),
   profileNotes: z.string().max(600).optional(),
   sameGenderOnly: z.boolean().optional(),
   sameCarClassOnly: z.boolean().optional(),
+  daysGoing: WeekdaysSchema.optional(),
   origin: RoutePointSchema.optional(),
   destination: RoutePointSchema.optional(),
   departWindow: TimeWindowSchema.optional(),
@@ -49,6 +52,8 @@ const UpdateProfileSchema = z.object({
     seats: z.number().int().min(1).max(3),
   }).optional(),
 });
+
+// ─── GET /me ─────────────────────────────────────────────
 
 profileRouter.get(
   '/',
@@ -112,6 +117,7 @@ profileRouter.get(
         },
         departWindow: { period: r.depart_period, start: r.depart_start, end: r.depart_end },
         returnWindow: { period: r.return_period, start: r.return_start, end: r.return_end },
+        daysGoing: r.days_going || [],
       } : null,
       car: c ? {
         model: c.car_model, carClass: c.car_class,
@@ -123,6 +129,8 @@ profileRouter.get(
   })
 );
 
+// ─── PUT /me ─────────────────────────────────────────────
+
 profileRouter.put(
   '/',
   asyncHandler(async (req, res) => {
@@ -130,6 +138,7 @@ profileRouter.put(
     const data = UpdateProfileSchema.parse(req.body);
 
     await withTransaction(async (client) => {
+      // ─── ۱. users ───
       const userFields = [];
       const userValues = [];
       let p = 1;
@@ -151,7 +160,8 @@ profileRouter.put(
         );
       }
 
-      if (data.origin || data.destination || data.departWindow || data.returnWindow) {
+      // ─── ۲. routes ───
+      if (data.origin || data.destination || data.departWindow || data.returnWindow || data.daysGoing) {
         await client.query(`UPDATE user_routes SET is_active = FALSE WHERE user_id = $1 AND is_active`, [userId]);
 
         const { rows: prev } = await client.query(
@@ -170,8 +180,9 @@ profileRouter.put(
              destination_map_x, destination_map_y,
              depart_period, depart_start, depart_end,
              return_period, return_start, return_end,
+             days_going,
              is_active
-           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,TRUE)`,
+           ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,TRUE)`,
           [
             userId,
             o?.province ?? old.origin_province ?? 'تهران',
@@ -194,10 +205,12 @@ profileRouter.put(
             rw?.period ?? old.return_period ?? 'afternoon',
             rw?.start ?? old.return_start ?? '05:00',
             rw?.end ?? old.return_end ?? '05:30',
+            data.daysGoing ?? old.days_going ?? [],
           ]
         );
       }
 
+      // ─── ۳. car ───
       if (data.car) {
         await client.query(`UPDATE user_cars SET is_active = FALSE WHERE user_id = $1 AND is_active`, [userId]);
         const cls = carClassOf(data.car.model);
@@ -213,6 +226,8 @@ profileRouter.put(
     res.json({ ok: true });
   })
 );
+
+// ─── POST /me/pause ──────────────────────────────────────
 
 profileRouter.post(
   '/pause',
