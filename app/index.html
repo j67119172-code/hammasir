@@ -94,7 +94,9 @@ textarea{min-height:76px;resize:vertical}
     </div>
     <div id="step" class="step">شروع</div>
   </header>
-  <main id="app"></main>
+  <main id="app">
+<div id="dbg" style="padding:40px;text-align:center;font-size:20px;color:green">در حال بارگذاری</div>
+  </main>
   <footer id="footer" class="bottom hidden">
     <button id="nHome" class="nav" onclick="app.nav('home')"><span>🏠</span>خانه</button>
     <button id="nGroup" class="nav" onclick="app.nav('group')"><span>👥</span>گروه من</button>
@@ -111,5 +113,11 @@ window.onerror = function(msg, src, line) {
 };
    </script> 
 <script src="app.bundle.js"></script>
+ <script>
+setTimeout(function(){
+var el = document.getElementById('dbg');
+if (el) el.textContent = 'BUNDLE LOADED NO';
+},3000);
+ </script>
 </body>
 </html>
