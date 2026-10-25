@@ -1,40 +1,121 @@
-↗
-هم‌مسیر
-خانه
-حریم خصوصی
-قوانین
-پشتیبانی
-English
-HAMMASIR · SMART COMMUTE MATCHING
-هم‌مسیر شو،
-رفت‌وآمد را ساده‌تر کن.
-پیدا کردن افرادی با مسیر و زمان رفت‌وآمد مشابه برای هماهنگی سفرهای روزانه.
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="هم‌مسیر؛ راهی برای هماهنگی رفت‌وآمدهای روزانه با افرادی که مسیر و زمان مشابه دارند.">
+<meta name="theme-color" content="#102c45">
+<title>هم‌مسیر | هماهنگی رفت‌وآمد روزانه</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f4f8fb;color:#142f46;line-height:2}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1080px,92%);margin:auto}
+header{background:white;border-bottom:1px solid #e1eaf0}
+nav{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:16px 0}
+.brand{font-size:23px;font-weight:bold;color:#102c45}
+.links{display:flex;gap:17px;flex-wrap:wrap;font-size:14px}
+.links a:hover{color:#1197a6}
+.lang{border:1px solid #c9dce5;border-radius:20px;padding:3px 12px}
+.hero{background:linear-gradient(130deg,#102c45,#17647a 70%,#19a2a3);color:white;padding:65px 0}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:35px;align-items:center}
+.tag{font-size:12px;letter-spacing:1px;color:#a9f0ed;font-weight:bold}
+h1{font-size:clamp(32px,5vw,52px);line-height:1.5;margin:12px 0}
+.lead{font-size:18px;color:#e0f4f5}
+.btn{display:inline-block;background:#35d0c5;color:#103541;font-weight:bold;padding:10px 22px;border-radius:10px;margin-top:12px}
+.route-card{background:#ffffff16;border:1px solid #ffffff55;border-radius:22px;padding:26px}
+.route{padding:10px 0;font-weight:bold}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#42e0c5;margin-left:10px}
+.destination{background:#ffc779}
+.section{padding:55px 0}
+.section h2{font-size:27px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:white;border:1px solid #e0eaf0;border-radius:17px;padding:24px;box-shadow:0 8px 25px #17394b0c}
+.card .icon{font-size:30px}
+.card h3{margin-bottom:5px}
+.alt{background:#eaf4f7}
+footer{background:#102c45;color:#d9eaf0;padding:25px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+footer .links{font-size:13px}
+@media(max-width:700px){.hero-grid,.cards{grid-template-columns:1fr}.hero{padding:42px 0}.section{padding:38px 0}nav{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<nav>
+<a class="brand" href="./">↗ هم‌مسیر</a>
+<div class="links">
+<a href="./">خانه</a>
+<a href="privacy.html">حریم خصوصی</a>
+<a href="terms.html">قوانین</a>
+<a href="contact.html">پشتیبانی</a>
+<a class="lang" href="../en/">English</a>
+</div>
+</nav>
+</div>
+</header>
 
-آشنایی و ارتباط با هم‌مسیر
-از مبدا تا مقصد، در یک مسیر مشترک
-مبدأ و محدوده حرکت
-مقصد و زمان رسیدن
-هم‌مسیر پیشنهادها را براساس اطلاعات ثبت‌شده و معیارهای گروه‌بندی بررسی می‌کند.
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="tag">HAMMASIR · SMART COMMUTE MATCHING</div>
+<h1>هم‌مسیر شو،<br>رفت‌وآمد را ساده‌تر کن.</h1>
+<p class="lead">با افرادی که مسیر و زمان رفت‌وآمد مشابهی دارند آشنا شو و برای سفرهای روزانه هماهنگ شوید.</p>
+<a class="btn" href="contact.html">آشنایی و ارتباط</a>
+</div>
+<div class="route-card">
+<h2>یک مسیر مشترک؛ از مبدأ تا مقصد</h2>
+<div class="route"><span class="dot"></span>مبدأ و محدوده حرکت</div>
+<div class="route"><span class="dot destination"></span>مقصد و زمان رسیدن</div>
+<p>هم‌مسیر با استفاده از اطلاعات ثبت‌شده و معیارهای گروه‌بندی، پیشنهادهایی برای هماهنگی رفت‌وآمد ارائه می‌کند.</p>
+</div>
+</div>
+</section>
 
-هم‌مسیر چه امکاناتی دارد؟
-📍
-بررسی مسیر مشترک
-مقایسه مبدا، مقصد و فاصله مسیرها برای پیشنهاد گروه‌های مناسب.
+<section class="section">
+<div class="wrap">
+<h2>هم‌مسیر چه امکاناتی دارد؟</h2>
+<div class="cards">
+<div class="card">
+<div class="icon">📍</div>
+<h3>بررسی مسیر مشترک</h3>
+<p>مقایسه مبدأ، مقصد و فاصله مسیرها برای شناسایی مسیرهای سازگار.</p>
+</div>
+<div class="card">
+<div class="icon">🕘</div>
+<h3>هماهنگی زمانی</h3>
+<p>درنظرگرفتن بازه‌های زمانی رفت‌وبرگشت و روزهای کاری.</p>
+</div>
+<div class="card">
+<div class="icon">🚙</div>
+<h3>تأیید اعضا</h3>
+<p>نمایش پیشنهادهای گروه‌بندی و امکان بررسی و تأیید آن‌ها در اپلیکیشن.</p>
+</div>
+</div>
+</div>
+</section>
 
-🕘
-هماهنگی زمانی
-درنظرگرفتن بازه‌های رفت و برگشت و روزهای کاری اعضا.
+<section class="section alt">
+<div class="wrap">
+<h2>شفافیت و اعتماد</h2>
+<p>پیش از ثبت‌نام، <a href="terms.html"><strong>قوانین استفاده</strong></a> و <a href="privacy.html"><strong>سیاست حریم خصوصی</strong></a> را مطالعه کنید. هرگونه پرداخت باید مطابق شرایط اعلام‌شده در اپلیکیشن انجام شود.</p>
+</div>
+</section>
+</main>
 
-🚙
-گروه‌بندی با تأیید اعضا
-نمایش پیشنهاد و امکان تأیید توسط اعضا، مطابق شرایط داخل اپ.
-
-شفافیت و اعتماد
-قبل از ثبت‌نام و پرداخت احتمالی، قوانین استفاده و حریم خصوصی را بخوانید. پرداخت واقعی تنها پس از فعال‌سازی رسمی سرویس و اعلام شرایط در اپ انجام خواهد شد.
-
-هم‌مسیر
-خانه
-حریم خصوصی
-قوانین
-پشتیبانی
-© 2026 HamMasir
+<footer>
+<div class="wrap">
+<strong>هم‌مسیر | HamMasir</strong>
+<div class="links">
+<a href="./">خانه</a>
+<a href="privacy.html">حریم خصوصی</a>
+<a href="terms.html">قوانین</a>
+<a href="contact.html">پشتیبانی</a>
+</div>
+<span>© 2026 HamMasir</span>
+</div>
+</footer>
+</body>
+  </html>
